@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class HabitacionTest {
-/*
+
 
     private static final String CADENA_NO_ESPERADA = "La cadena devuelta no es la esperada.";
     private static final String PLANTA_NO_ESPERADA = "El n�mero de planta devuelta no es la misma que la pasada al constructor.";
@@ -196,5 +196,5 @@ public class HabitacionTest {
         assertEquals(String.format("identificador=%s (%d-%d), precio habitaci�n=%s, tipo habitaci�n=%s", habitacion.getIdentificador(), habitacion.getPlanta(), habitacion.getPuerta(), habitacion.getPrecio(), habitacion.getTipoHabitacion()), habitacion.toString(), CADENA_NO_ESPERADA);
     }
 
-*/
+
 }
