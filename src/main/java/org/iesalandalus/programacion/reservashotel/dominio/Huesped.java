@@ -33,7 +33,8 @@ public class Huesped {
 
     public Huesped(Huesped huesped){
         if (huesped == null) {
-            throw new NullPointerException("ERROR: No es posible copiar un hu�sped nulo.");
+            throw new NullPointerException("ERROR: No es posible copiar un " +
+                    "hu�sped nulo.");
         }
         setNombre(huesped.getNombre());
         setDni(huesped.getDni());
