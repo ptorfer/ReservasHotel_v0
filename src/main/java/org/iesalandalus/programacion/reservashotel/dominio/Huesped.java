@@ -8,18 +8,49 @@ import java.util.regex.Pattern;
 
 public class Huesped {
 
-    //2. Creaci�n de atributos.
-    private static final String ER_TELEFONO = "[96]\\d{8}";
+    //Atritubos.
+    private static final String ER_TELEFONO = "[9876]\\d{8}";
     private static final String ER_CORREO = ".+@[a-zA-Z]+\\.[a-zA-Z]+";
     private static final String ER_DNI = "(\\d{8})([A-HJ-NP-TV-Z])";
-    public static final String FORMATO_FECHA = "dd/mm/yyyy";
+    public static final String FORMATO_FECHA = "dd/MM/yyyy";
     private String nombre;
     private String telefono;
     private String correo;
     private String dni;
     private LocalDate fechaNacimiento;
 
-    //3. Creaci�n de m�todo formateaNombre.
+    //Constructores.
+
+    public Huesped(String nombre, String dni, String correo, String telefono,
+                   LocalDate fechaNacimiento) {
+
+        setNombre(nombre);
+        setDni(dni);
+        setCorreo(correo);
+        setTelefono(telefono);
+        setFechaNacimiento(fechaNacimiento);
+    }
+
+    public Huesped(Huesped huesped){
+        if (huesped == null) {
+            throw new NullPointerException("ERROR: No es posible copiar un hu�sped nulo.");
+        }
+        setNombre(huesped.getNombre());
+        setDni(huesped.getDni());
+        setCorreo(huesped.getCorreo());
+        setTelefono(huesped.getTelefono());
+        setFechaNacimiento(huesped.getFechaNacimiento());
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = formateaNombre(nombre);
+    }
+
+    //Método formateaNombre.
     private String formateaNombre(String nombre) {
 
         String palabra = "";
@@ -45,46 +76,6 @@ public class Huesped {
         resultado = resultado.trim();
 
         return resultado;
-    }
-
-    //4. Crea el m�todo comprobarLetraDni.
-
-    private Boolean comprobarLetraDni(String dni) {
-        String regex = "^(\\d{8})([A-HJ-NP-TV-Z])$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(dni);
-
-        if (matcher.matches()) {
-
-            String numero = matcher.group(1);
-            String letra = matcher.group(2);
-
-            String letraCalculada = calcularLetraDni(numero);
-
-            if (letra.equals(letraCalculada)) {
-                return true; // El DNI es correcto.
-            }else{
-
-            }
-        }
-
-        return false; // El DNI no es correcto.
-    }
-
-    private String calcularLetraDni(String numero) {
-        String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
-        int indice = Integer.parseInt(numero) % 23;
-        return letras.substring(indice, indice + 1);
-    }
-
-    //5. Creación de métodos de acceso y modificación de cada atributo.
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = formateaNombre(nombre);
     }
 
     public String getTelefono() {
@@ -129,6 +120,36 @@ public class Huesped {
         this.dni = dni;
     }
 
+    //Método comprobarLetraDni.
+
+    private Boolean comprobarLetraDni(String dni) {
+        String regex = "^(\\d{8})([A-HJ-NP-TV-Z])$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(dni);
+
+        if (matcher.matches()) {
+
+            String numero = matcher.group(1);
+            String letra = matcher.group(2);
+
+            String letraCalculada = calcularLetraDni(numero);
+
+            if (letra.equals(letraCalculada)) {
+                return true; // El DNI es correcto.
+            }else{
+
+            }
+        }
+
+        return false; // El DNI no es correcto.
+    }
+
+    private String calcularLetraDni(String numero) {
+        String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+        int indice = Integer.parseInt(numero) % 23;
+        return letras.substring(indice, indice + 1);
+    }
+
     public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
@@ -140,7 +161,7 @@ public class Huesped {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    //6. Creación del método getIniciales.
+    //Método getIniciales.
     private String getIniciales(){
         String [] palabras = nombre.split("");
         StringBuilder iniciales = new StringBuilder();
@@ -150,32 +171,6 @@ public class Huesped {
         }
         return iniciales.toString();
     }
-
-    //7. Creación del constructor con parámetros.
-
-    public Huesped(String nombre, String dni, String correo, String telefono,
-                   LocalDate fechaNacimiento) {
-
-        setNombre(nombre);
-        setDni(dni);
-        setCorreo(correo);
-        setTelefono(telefono);
-        setFechaNacimiento(fechaNacimiento);
-    }
-
-    //8. Creación constructor copia.
-    public Huesped(Huesped huesped){
-        if (huesped == null) {
-            throw new NullPointerException("ERROR: No es posible copiar un hu�sped nulo.");
-        }
-        setNombre(huesped.getNombre());
-        setDni(huesped.getDni());
-        setCorreo(huesped.getCorreo());
-        setTelefono(huesped.getTelefono());
-        setFechaNacimiento(huesped.getFechaNacimiento());
-    }
-
-    //9. Creación de los métodos equals y hashCode,
 
     @Override
     public boolean equals(Object obj) {
